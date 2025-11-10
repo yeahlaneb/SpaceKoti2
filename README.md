@@ -1,2 +1,1 @@
-# SpaceKoti2
-WebJava laboratory work 2
+# WebJava Laboratory work 1.2 with completed lab2
