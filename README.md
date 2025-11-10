@@ -1,1 +1,1 @@
-# JavaWeb-E-Commerce
+# WebJava Laboratory work 1.2 with completed lab2
