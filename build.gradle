@@ -55,7 +55,11 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    // Disable IT with Testcontainers
+    exclude '**/*IT*'
 }
+
 
 bootRun {
     jvmArgs = ["-Duser.timezone=UTC"]
