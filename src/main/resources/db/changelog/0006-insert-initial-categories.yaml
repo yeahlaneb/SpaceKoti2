@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-initial-categories
+      author: system
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: title
+                  value: Space Borsch
+              - column:
+                  name: description
+                  value: Food from outer space
+
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: title
+                  value: Cosmic Hinkali
+              - column:
+                  name: description
+                  value: Yummy
