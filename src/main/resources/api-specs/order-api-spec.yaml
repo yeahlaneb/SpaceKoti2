@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Order API
+  description: Order API
+  version: 1.0.0
+
+paths:
+  /api/v1/orders:
+    post:
+      summary: Add order
+      tags:
+        - Orders
+      requestBody:
+        description: User data to place order
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequestDto'
+      responses:
+        200:
+          description: Method for placing order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponseDto'
+
+        400:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+
+components:
+  schemas:
+    OrderRequestDto:
+      type: object
+      properties:
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItemDto'
+          description: List of order items
+        address:
+          type: string
+          description: Shipping address
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          description: Email of the consumer
+        consumerName:
+          type: string
+          description: Name of the consumer
+          maxLength: 100
+        totalPrice:
+          type: number
+          format: double
+          description: Total price of the order
+        orderStatus:
+          type: string
+          description: Status of the order
+
+    OrderItemDto:
+      type: object
+      properties:
+        product:
+          type: string
+          description: Name of the product
+        quantity:
+          type: integer
+          description: Quantity of the product
+        price:
+          type: number
+          format: double
+          description: Price of the product
+
+    OrderResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the order
+        consumerName:
+          type: string
+          description: Name of the consumer
+        address:
+          type: string
+          description: Shipping address for the order
+        email:
+          type: string
+          format: email
+          description: Email of the consumer
+        totalPrice:
+          type: number
+          format: double
+          description: Total price of the order
+        orderStatus:
+          type: string
+          description: Current status of the order
+
+    ParamsViolationDetails:
+      type: object
+      properties:
+        fieldName:
+          type: string
+          description: Field where validation error occurred
+        reason:
+          type: string
+          description: Reason for the validation error
+
+    ValidationError:
+      type: object
+      properties:
+        status:
+          type: string
+          example: '400'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ParamsViolationDetails'

@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0001-create-sequences
+      author: system
+      changes:
+        - createSequence:
+            sequenceName: seq_categories
+            startValue: 1
+            incrementBy: 1
+        - createSequence:
+            sequenceName: seq_products
+            startValue: 1
+            incrementBy: 1
+        - createSequence:
+            sequenceName: seq_orders
+            startValue: 1
+            incrementBy: 1
+        - createSequence:
+            sequenceName: seq_cart_items
+            startValue: 1
+            incrementBy: 1

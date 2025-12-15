@@ -1,0 +1,19 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/0001-create-sequences.yaml
+
+  - include:
+      file: db/changelog/0002-create-tables.yaml
+
+  - include:
+      file: db/changelog/0003-add-foreign-keys.yaml
+
+  - include:
+      file: db/changelog/0004-add-unique-and-indexes.yaml
+
+  - include:
+      file: db/changelog/0005-add-order-number.yaml
+
+  - include:
+      file: db/changelog/0006-insert-initial-categories.yaml
