@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004-unique-product-title-category
+      author: system
+      changes:
+        - addUniqueConstraint:
+            tableName: products
+            columnNames: title, category_id
+            constraintName: uq_product_title_category
+
+  - changeSet:
+      id: 0004-unique-order-email
+      author: system
+      changes:
+        - addUniqueConstraint:
+            tableName: orders
+            columnNames: email
+            constraintName: uq_orders_email
+
+  - changeSet:
+      id: 0004-add-indexes
+      author: system
+      changes:
+        - createIndex:
+            indexName: idx_products_title
+            tableName: products
+            columns:
+              - column:
+                  name: title
+        - createIndex:
+            indexName: idx_products_category_id
+            tableName: products
+            columns:
+              - column:
+                  name: category_id
+        - createIndex:
+            indexName: idx_cart_product
+            tableName: cart_items
+            columns:
+              - column:
+                  name: product_id
+        - createIndex:
+            indexName: idx_cart_order
+            tableName: cart_items
+            columns:
+              - column:
+                  name: order_id
+        - createIndex:
+            indexName: idx_orders_email
+            tableName: orders
+            columns:
+              - column:
+                  name: email
