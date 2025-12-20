@@ -9,15 +9,18 @@ import com.tb.javaecommerce.repository.projection.ProductSalesView;
 import com.tb.javaecommerce.service.CategoryService;
 import com.tb.javaecommerce.service.ProductService;
 import com.tb.javaecommerce.service.exception.ProductNotFoundException;
+import com.tb.javaecommerce.service.exception.CategoryNotFoundException;
 import com.tb.javaecommerce.service.mappers.ProductEntityMapper;
 import com.tb.javaecommerce.service.mappers.CategoryEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final CategoryService categoryService;
@@ -45,7 +48,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(ProductRequestDto dto) {
-        Category category = categoryService.findCategoryById(dto.getCategoryId());
+        Category category;
+        try {
+            category = categoryService.findCategoryById(dto.getCategoryId());
+        } catch (CategoryNotFoundException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new IllegalStateException("Failed to create product due to database error", ex);
+        }
 
         ProductEntity entity = new ProductEntity();
         entity.setTitle(dto.getTitle());
